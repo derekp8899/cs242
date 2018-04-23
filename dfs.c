@@ -10,10 +10,17 @@ struct vertex{
 
 };
 
+void visit(struct vertex *cursor);
+
 int main(int argc, char *argv[]){
 
   int stackCount;
   struct vertex **stack;
+  struct vertex vA;
+  // vA.label = 'a';
+  //vA.visit = 0;
+  //visit(&vA);
+  //printf("%d\n\n",vA.visit);
 
 }
 
@@ -31,6 +38,7 @@ struct vertex ** pop(struct vertex *del){
 
 void visit(struct vertex *cursor){
 
-  printf("%c \n",&cursor->label);
+  cursor->visit = 1;
+  printf("%c \n",cursor->label);
 
 }
