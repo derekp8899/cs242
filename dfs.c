@@ -11,6 +11,9 @@ struct vertex{
 };
 
 void visit(struct vertex *cursor);
+struct vertex **push(struct vertex *ins);
+struct vertex **push(struct vertex *ins);
+void dfs(struct vertex *head);
 
 int main(int argc, char *argv[]){
 
@@ -24,13 +27,13 @@ int main(int argc, char *argv[]){
 
 }
 
-struct vertex** push(struct vertex *ins){
+struct vertex** push(struct vertex *ins){//push vertex pointers into stack for backtracing
 
 
 
 }
 
-struct vertex ** pop(struct vertex *del){
+struct vertex ** pop(struct vertex *del){//after deadend is found pop address of a vertex with new paths
 
 
 
