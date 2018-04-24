@@ -51,7 +51,18 @@ void dfs(struct vertex *cursor,struct vertex **stack, int stackcount){
   if((cursor->e1)&&(cursor->e1->visit==0)){
     dfs(cursor->e1,stack,stackcount);
   }
-  
+  if((cursor->e2)&&(cursor->e2->visit==0)){
+    dfs(cursor->e2,stack,stackcount);
+  }
+  if((cursor->e3)&&(cursor->e3->visit==0)){
+    dfs(cursor->e3,stack,stackcount);
+  }
+  if((cursor->e4)&&(cursor->e4->visit==0)){
+    dfs(cursor->e4,stack,stackcount);
+  }
+  if((cursor->e5)&&(cursor->e5->visit==0)){
+    dfs(cursor->e5,stack,stackcount);
+  }
 
 }
 
