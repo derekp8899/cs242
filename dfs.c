@@ -13,13 +13,14 @@ struct vertex{
 void visit(struct vertex *cursor);
 struct vertex **push(struct vertex *ins);
 struct vertex **push(struct vertex *ins);
+struct vertex *populate();
 void dfs(struct vertex *head);
 
 int main(int argc, char *argv[]){
 
   int stackCount;
   struct vertex **stack;
-  struct vertex vA;
+  struct vertex *head = populate();
   // vA.label = 'a';
   //vA.visit = 0;
   //visit(&vA);
