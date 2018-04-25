@@ -83,11 +83,12 @@ void bfs(struct vertex *cursor,struct vertex **stack,int *lead, int *end,int *co
 	
 	// bfs(cursor->e[i]);
       queue(stack,cursor->e[i],end,count);
-      cursor->e[i]=0;
+      cursor->e[i]->visit = 0;
     }
       
   }
-  bfs(deque(stack,lead,count),stack,lead,end,count);
+  if((*count)<16)
+    bfs(deque(stack,lead,count),stack,lead,end,count);
     
 }
 
