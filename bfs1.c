@@ -32,12 +32,13 @@ int main(int argc, char *argv[]){
   stackcount = 0;
   bfs(head,stack,&lead,&end,&stackcount);
   int i = 0;
-  printf("stackcounter %d lead %d end %d\n",stackcount,lead,end);
+  //printf("stackcounter %d lead %d end %d\n",stackcount,lead,end);
   for(i =0;i <stackcount;i++){
 
     visit(stack[i]);
 
   }
+  printf("\n\nEnd of BFS\n-----------------\n");
 }
 
 void dfs(struct vertex *cursor,struct vertex **stack, int stackcount){
@@ -68,27 +69,27 @@ void dfs(struct vertex *cursor,struct vertex **stack, int stackcount){
 
 void bfs(struct vertex *cursor,struct vertex **stack,int *lead, int *end,int *count){
   
-  if(cursor->visit==1){
+  if(cursor->visit==1){ //marks the first node(head) as visited
     //  visit(cursor);
     cursor->visit = 0;
     //int queuecount =0;
   }
   if(*count==0){
-    queue(stack,cursor,end,count);
+    queue(stack,cursor,end,count);//quees head to be the first return
   }
   int i;
-  for(i=0;i<5;i++){
+  for(i=0;i<5;i++){//searches all edges in current node
       
-    if(cursor->e[i]&&cursor->e[i]->visit==1){
+    if(cursor->e[i]&&cursor->e[i]->visit==1){//if those nodes exists queue them for return
 	
 	// bfs(cursor->e[i]);
-      queue(stack,cursor->e[i],end,count);
-      cursor->e[i]->visit = 0;
+      queue(stack,cursor->e[i],end,count);//queues each node
+      cursor->e[i]->visit = 0;//marks each node as visited
     }
       
   }
   if((*count)<16)
-    bfs(deque(stack,lead,count),stack,lead,end,count);
+    bfs(deque(stack,lead,count),stack,lead,end,count);//recursive call until all nodes are visited in order
     
 }
 
@@ -96,21 +97,21 @@ void bfs(struct vertex *cursor,struct vertex **stack,int *lead, int *end,int *co
 
 void queue(struct vertex **stack,struct vertex *ins,int *end,int *stackcount){//for order of returns in BFS
   
-  stack[*end] = ins;
-  printf("queued %c, at %d\n",stack[*end]->label,*end);
-  (*end)++;
+  stack[*end] = ins;//inserts node at end of queue
+  // printf("queued %c, at %d\n",stack[*end]->label,*end);
+  (*end)++;//increment insertion point
   if(*end>16){
 
    *end = 0;
 
   }
-  (*stackcount)++;
+  (*stackcount)++;//increment size of queue
  
 }
 struct vertex* deque(struct vertex **stack,int *lead,int *stackcount){//get next return for BFS
-
-  struct vertex *temp = stack[*lead];
-  *lead++;
+  //printf("attemping deque at %d\n",(*lead));
+  struct vertex *temp = stack[*lead];//the node to be returned
+  (*lead)++;//increment front of queue
   if(*lead > 16){
     *lead = 0;
   }
