@@ -16,20 +16,28 @@ void push(struct vertex *ins,int count,struct vertex** stack);
 struct vertex **pop(struct vertex *ins,int count);
 struct vertex *populate();
 void dfs(struct vertex *head, struct vertex **stack, int stackcount);
-void bfs(struct vertex *cursor,struct vertex **stack, int *lead,int *end);
-void queue(struct vertex **stack,struct vertex *ins,int *end);
-struct vertex* deque(struct vertex **stack,int *lead);
+void bfs(struct vertex *cursor,struct vertex **stack, int *lead,int *end,int *count);
+void queue(struct vertex **stack,struct vertex *ins,int *end,int *stackcount);
+struct vertex* deque(struct vertex **stack,int *lead,int *stackcount);
 int main(int argc, char *argv[]){
 
   struct vertex *head = populate();
-  struct vertex **stack = malloc (sizeof(struct vertex *)*12);
+  struct vertex **stack = malloc (sizeof(struct vertex *)*16);
   int stackcount = 0;
   printf("\nStarting DFS\n-----------------\n");
   dfs(head,stack,stackcount);
   printf("\n\nEnd of DFS\n-----------------\n");
   printf("\nStarting BFS\n-----------------\n");
-  int end = 0,lead = 0;
-  bfs(head,stack,&lead,&end);
+  int end = 0,lead = 1;
+  stackcount = 0;
+  bfs(head,stack,&lead,&end,&stackcount);
+  int i = 0;
+  printf("stackcounter %d lead %d end %d\n",stackcount,lead,end);
+  for(i =0;i <stackcount;i++){
+
+    visit(stack[i]);
+
+  }
 }
 
 void dfs(struct vertex *cursor,struct vertex **stack, int stackcount){
@@ -58,58 +66,59 @@ void dfs(struct vertex *cursor,struct vertex **stack, int stackcount){
 }
 
 
-void bfs(struct vertex *cursor,struct vertex **stack,int *lead, int *end){
+void bfs(struct vertex *cursor,struct vertex **stack,int *lead, int *end,int *count){
   
-    visit(cursor);
+  if(cursor->visit==1){
+    //  visit(cursor);
     cursor->visit = 0;
-    int queuecount =0;
-
+    //int queuecount =0;
+  }
+  if(*count==0){
+    queue(stack,cursor,end,count);
+  }
   int i;
   for(i=0;i<5;i++){
-
+      
     if(cursor->e[i]&&cursor->e[i]->visit==1){
-
-      // bfs(cursor->e[i]);
-      queue(stack,cursor->e[i],end);
-      queuecount++;
+	
+	// bfs(cursor->e[i]);
+      queue(stack,cursor->e[i],end,count);
+      cursor->e[i]=0;
     }
-
+      
   }
-  for(i=0;i<queuecount;i++){
-    queuecount--;
-    bfs(deque(stack,lead),stack,lead,end);
-
-  }
-
-
+  bfs(deque(stack,lead,count),stack,lead,end,count);
+    
 }
 
 
 
-void queue(struct vertex **stack,struct vertex *ins,int *end){//for order of returns in BFS
+void queue(struct vertex **stack,struct vertex *ins,int *end,int *stackcount){//for order of returns in BFS
   
   stack[*end] = ins;
-  
-  *end++;
-  if(*end>12){
+  printf("queued %c, at %d\n",stack[*end]->label,*end);
+  (*end)++;
+  if(*end>16){
 
    *end = 0;
 
   }
-
+  (*stackcount)++;
+ 
 }
-struct vertex* deque(struct vertex **stack,int *lead){//get next return for BFS
+struct vertex* deque(struct vertex **stack,int *lead,int *stackcount){//get next return for BFS
 
   struct vertex *temp = stack[*lead];
   *lead++;
-  if(*lead > 12){
+  if(*lead > 16){
     *lead = 0;
   }
+  //(*stackcount) == 0;
   return temp;
 }
 
 void push(struct vertex *ins,int count,struct vertex** stack){//push vertex pointers into stack for backtracing
-  if(count > 12){
+  if(count > 16){
 
     printf("Error stack is full cannont add to it!\n\n");
     return;
