@@ -45,7 +45,7 @@ void dfs(struct vertex *cursor,struct vertex **stack, int stackcount){
   if(cursor->edges>1){
     push(cursor,stackcount,stack);
     stackcount++;
-    // printf("pushing %c\nstack at %d\n",cursor->label,stackcount-1);
+    //printf("pushing %c\nstack at %d\n",cursor->label,stackcount-1);
     //visit(stack[stackcount-1]);
   }
   if((cursor->e1)&&(cursor->e1->visit==0)){
