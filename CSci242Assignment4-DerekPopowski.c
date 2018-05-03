@@ -10,7 +10,7 @@ Derek Popowski
 #include <time.h>
 
 
-struct vertex{
+struct vertex{//holds the vertex and edge information
 
   char label;
   int visit;
@@ -171,7 +171,7 @@ struct vertex ** pop(struct vertex *del,int count){//after deadend is found pop 
 
 }
 
-void visit(struct vertex *cursor){
+void visit(struct vertex *cursor){//prints the vertex name and marks as visited
 
   cursor->visit = 1;
   cursor->edges--;
@@ -179,7 +179,7 @@ void visit(struct vertex *cursor){
 
 }
 
-struct vertex *randomize(struct vertex *head){
+struct vertex *randomize(struct vertex *head){//picks a random start vertex for the extra credit
 
   int x,y;
   struct vertex *temp = head;
